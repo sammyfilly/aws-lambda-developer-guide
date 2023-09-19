@@ -15,7 +15,7 @@ The [Applications](deploying-lambda-apps.md) page shows you a list of applicatio
 
 ## Functions<a name="foundation-functions"></a>
 
-The functions page shows you a list of functions defined for your account in this region\. The initial console flow to create a function depends on whether the function uses a [container image](configuration-images.md) or [\.zip file archive](configuration-function-zip.md) for the deployment package\. Many of the optional [configuration tasks](configuration-function-common.md) are common to both types of function\.
+The functions page shows you a list of functions defined for your account in this region\. The initial console flow to create a function depends on whether the function uses a [container image](gettingstarted-images.md) or [\.zip file archive](configuration-function-zip.md) for the deployment package\. Many of the optional [configuration tasks](configuration-function-common.md) are common to both types of function\.
 
 The console provides a [code editor](#code-editor) for your convenience\. 
 
@@ -29,7 +29,7 @@ Create [layers](configuration-layers.md) to separate your \.zip archive function
 
 ## Edit code using the console editor<a name="code-editor"></a>
 
-You can use the code editor in the AWS Lambda console to write, test, and view the execution results of your Lambda function code\. The code editor supports languages that do not require compiling, such as Node\.js and Python\. The code editor suppports only \.zip archive deployment packages, and the size of the deployment package must be less than 3 MB\. 
+You can use the code editor in the AWS Lambda console to write, test, and view the execution results of your Lambda function code\. The code editor supports languages that do not require compiling, such as Node\.js and Python\. The code editor supports only \.zip archive deployment packages, and the size of the deployment package must be less than 3 MB\. 
 
 The code editor includes the *menu bar*, *windows*, and the *editor pane*\.
 

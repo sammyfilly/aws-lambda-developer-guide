@@ -1,7 +1,7 @@
 # Lambda instruction set architectures<a name="foundation-arch"></a>
 
  The *instruction set architecture* of a Lambda function determines the type of computer processor that Lambda uses to run the function\. Lambda provides a choice of instruction set architectures:
-+ arm64 – 64\-bit ARM architecture, for the AWS Graviton2 processor\.
++ arm64 – 64\-bit ARM architecture, for the AWS Graviton2 processor\. The arm64 architecture is available in most AWS Regions\.
 + x86\_64 – 64\-bit x86 architecture, for x86\-based processors\.
 
 **Topics**
@@ -9,7 +9,7 @@
 + [Function migration to arm64 architecture](#foundation-arch-consider)
 + [Function code compatibility with arm64 architecture](#foundation-arch-considerations)
 + [Suggested migration steps](#foundation-arch-steps)
-+ [Configuring the instruction set architecture](#foundation-arch-adv)
++ [Configuring the instruction set architecture](#foundation-arch-config)
 
 ## Advantages of using arm64 architecture<a name="foundation-arch-adv"></a>
 
@@ -66,12 +66,12 @@ To migrate a Lambda function to the arm64 architecture, we recommend following t
 
 For more information about how to create a code environment for arm64 architecture, including language\-specific information for Java, Go, \.NET, and Python, see the [Getting started with AWS Graviton](https://github.com/aws/aws-graviton-getting-started) GitHub repository\.
 
-## Configuring the instruction set architecture<a name="foundation-arch-adv"></a>
+## Configuring the instruction set architecture<a name="foundation-arch-config"></a>
 
 You can configure the instruction set architecture for new Lambda functions using the Lambda console, AWS SDKs, AWS Command Line Interface \(AWS CLI\), or AWS CloudFormation\. You can deploy the function code to Lambda with either a \.zip archive file or a container image deployment package\.
 
 Lambda provides the following runtimes for the arm64 architecture\. These runtimes all use the Amazon Linux 2 operating system\.
-+ Node\.js 12, Node\.js 14
++ Node\.js 12, Node\.js 14, Node\.js 16
 + Python 3\.8, Python 3\.9 
 + Java 8 \(AL2\), Java 11
 + \.NET Core 3\.1

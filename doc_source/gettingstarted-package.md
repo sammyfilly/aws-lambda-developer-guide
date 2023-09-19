@@ -16,7 +16,10 @@ Lambda provides a set of open\-source base images that you can use to build your
 
 You upload your container images to Amazon Elastic Container Registry \(Amazon ECR\), a managed AWS container image registry service\. To deploy the image to your function, you specify the Amazon ECR image URL using the Lambda console, the Lambda API, command line tools, or the AWS SDKs\.
 
-For more information about Lambda container images, see [Using container images with Lambda](lambda-images.md)\.
+For more information about Lambda container images, see [Creating Lambda container images](images-create.md)\.
+
+**Note**  
+Container images aren't supported for Lambda functions in the Middle East \(UAE\) Region\.
 
 ## \.zip file archives<a name="gettingstarted-package-zip"></a>
 
@@ -107,7 +110,7 @@ For more information, see [sam build](https://docs.aws.amazon.com/serverless-app
 
 ### Deployment packages over 50 MB<a name="gettingstarted-package-s3"></a>
 
-If your deployment package is larger than 50 MB, we recommend uploading your function code and dependencies to an Amazon S3 bucket\.
+If your deployment package is larger than 50 MB, upload your function code and dependencies to an Amazon S3 bucket\.
 
 You can create a deployment package and upload the \.zip file to your Amazon S3 bucket in the AWS Region where you want to create a Lambda function\. When you create your Lambda function, specify the S3 bucket name and object key name on the Lambda console, or using the AWS CLI\.
 

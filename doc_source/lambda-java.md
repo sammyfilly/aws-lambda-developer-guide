@@ -5,13 +5,13 @@ You can run Java code in AWS Lambda\. Lambda provides [runtimes](lambda-runtimes
 Lambda supports the following Java runtimes\.
 
 
-**Java runtimes**  
+**Java**  
 
-| Name | Identifier | JDK | Operating system | Architectures | 
+| Name | Identifier | Operating system | Architectures | Deprecation | 
 | --- | --- | --- | --- | --- | 
-|  Java 11  |  `java11`  |  amazon\-corretto\-11  |  Amazon Linux 2  |  x86\_64, arm64  | 
-|  Java 8  |  `java8.al2`  |  amazon\-corretto\-8  |  Amazon Linux 2  |  x86\_64, arm64  | 
-|  Java 8  |  `java8`  |  amazon\-corretto\-8  |  Amazon Linux  |  x86\_64  | 
+|  Java 11  |  `java11`  |  Amazon Linux 2  |  x86\_64, arm64  |    | 
+|  Java 8  |  `java8.al2`  |  Amazon Linux 2  |  x86\_64, arm64  |    | 
+|  Java 8  |  `java8`  |  Amazon Linux  |  x86\_64  |    | 
 
 Lambda provides the following libraries for Java functions:
 + [com\.amazonaws:aws\-lambda\-java\-core](https://github.com/aws/aws-lambda-java-libs/tree/master/aws-lambda-java-core) \(required\) – Defines handler method interfaces and the context object that the runtime passes to the handler\. If you define your own input types, this is the only library that you need\.

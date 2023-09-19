@@ -12,11 +12,11 @@ EventBridge \(CloudWatch Events\) invokes your Lambda function asynchronously wi
     "id": "b6ba298a-7732-2226-xmpl-976312c1a050",
     "detail-type": "EC2 Instance State-change Notification",
     "source": "aws.ec2",
-    "account": "123456798012",
+    "account": "111122223333",
     "time": "2019-10-02T17:59:30Z",
     "region": "us-east-2",
     "resources": [
-        "arn:aws:ec2:us-east-2:123456798012:instance/i-0c314xmplcd5b8173"
+        "arn:aws:ec2:us-east-2:111122223333:instance/i-0c314xmplcd5b8173"
     ],
     "detail": {
         "instance-id": "i-0c314xmplcd5b8173",
@@ -27,7 +27,7 @@ EventBridge \(CloudWatch Events\) invokes your Lambda function asynchronously wi
 
 For details on configuring events in EventBridge \(CloudWatch Events\), see [Using AWS Lambda with Amazon EventBridge \(CloudWatch Events\)](services-cloudwatchevents.md)\. For an example function that processes Amazon EBS snapshot notifications, see [Amazon EventBridge \(CloudWatch Events\) for Amazon EBS](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-cloud-watch-events.html) in the Amazon EC2 User Guide for Linux Instances\.
 
-You can also use the AWS SDK to manage instances and other resources with the Amazon EC2 API\. For a tutorial with a sample application in C\#, see [Tutorial: Using AWS SDK for \.NET to manage Amazon EC2 Spot Instances](services-ec2-tutorial.md)\.
+You can also use the AWS SDK to manage instances and other resources with the Amazon EC2 API\.  
 
 ## Permissions<a name="services-ec2-permissions"></a>
 

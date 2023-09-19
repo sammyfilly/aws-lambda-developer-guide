@@ -5,6 +5,7 @@ Lambda provides a management console and API for managing and invoking functions
 **Topics**
 + [Scaling](#gettingstarted-features-scaling)
 + [Concurrency controls](#gettingstarted-features-concurrency)
++ [Function URLs](#gettingstarted-features-urls)
 + [Asynchronous invocation](#gettingstarted-features-async)
 + [Event source mappings](#gettingstarted-features-eventsourcemapping)
 + [Destinations](#gettingstarted-features-destinations)
@@ -31,6 +32,12 @@ To enable functions to scale without fluctuations in latency, use *provisioned c
 ![\[\]](http://docs.aws.amazon.com/lambda/latest/dg/images/features-scaling-provisioned-auto.png)
 
 For more information, see [Managing Lambda reserved concurrency](configuration-concurrency.md)\.
+
+## Function URLs<a name="gettingstarted-features-urls"></a>
+
+Lambda offers built\-in HTTP\(S\) endpoint support through *function URLs*\. With function URLs, you can assign a dedicated HTTP endpoint to your Lambda function\. When your function URL is configured, you can use it to invoke your function through a web browser, curl, Postman, or any HTTP client\.
+
+You can add a function URL to an existing function, or create a new function with a function URL\. For more information, see [Invoking Lambda function URLs](urls-invocation.md)\.
 
 ## Asynchronous invocation<a name="gettingstarted-features-async"></a>
 
@@ -70,9 +77,12 @@ Blueprints are provided for use under the [Amazon Software License](http://aws.a
 
 ## Testing and deployment tools<a name="gettingstarted-features-tools"></a>
 
-Lambda supports deploying code as is or as [container images](gettingstarted-package.md#gettingstarted-package-images)\. You can use a rich tools ecosystem for authoring, building, and deploying your Lambda functions using AWS and popular community tools like the Docker command line interface \(CLI\)\.
+Lambda supports deploying code as is or as [container images](gettingstarted-package.md#gettingstarted-package-images)\. You can use AWS services and popular community tools like the Docker command line interface \(CLI\) to author, build, and deploy your Lambda functions\. To set up the Docker CLI, see [Get Docker](https://docs.docker.com/get-docker) on the Docker Docs website\. For an introduction to using Docker with AWS, see [Getting started with Amazon ECR using the AWS CLI](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-cli.html) in the *Amazon Elastic Container Registry User Guide*\.
 
-To set up the Docker CLI, see [Get Docker](https://docs.docker.com/get-docker) on the Docker Docs website\. For an introduction to using Docker with AWS, see [Getting started with Amazon ECR using the AWS CLI](https://docs.aws.amazon.com/AmazonECR/latest/userguide/getting-started-cli.html) in the *Amazon Elastic Container Registry User Guide*\.
+The [AWS CLI](lambda-settingup.md#lambda-settingup-awscli) and [SAM CLI](lambda-settingup.md#lambda-settingup-samcli) are command line tools for managing Lambda application stacks\. In addition to commands for managing application stacks with the AWS CloudFormation API, the AWS CLI supports higher\-level commands that simplify tasks like uploading deployment packages and updating templates\. The AWS SAM CLI provides additional functionality, including validating templates, testing locally, and integrating with CI/CD systems\.
++ [Installing the AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)
++ [Testing and debugging serverless applications with AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-test-and-debug.html)
++ [Deploying serverless applications using CI/CD systems with AWS SAM](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-deploying.html)
 
 ## Application templates<a name="gettingstarted-features-templates"></a>
 

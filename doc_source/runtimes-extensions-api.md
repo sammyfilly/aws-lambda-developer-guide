@@ -1,31 +1,16 @@
 # Lambda Extensions API<a name="runtimes-extensions-api"></a>
 
-Lambda function authors use extensions to integrate Lambda with their preferred tools for monitoring, observability, security, and governance\. Function authors can use extensions from AWS, AWS Partners, and open\-source projects\. For more information on using extensions, see [Introducing AWS Lambda Extensions](http://aws.amazon.com/blogs/compute/introducing-aws-lambda-extensions-in-preview/) on the AWS Compute Blog\.
+Lambda function authors use extensions to integrate Lambda with their preferred tools for monitoring, observability, security, and governance\. Function authors can use extensions from AWS, [AWS Partners](extensions-api-partners.md), and open\-source projects\. For more information on using extensions, see [Introducing AWS Lambda Extensions](http://aws.amazon.com/blogs/aws/getting-started-with-using-your-favorite-operational-tools-on-aws-lambda-extensions-are-now-generally-available/) on the AWS Compute Blog\.
 
-As an extension author, you can use the Lambda Extensions API to integrate deeply into the Lambda [execution environment](runtimes-context.md)\. Your extension can register for function and execution environment lifecycle events\. In response to these events, you can start new processes, run logic, and control and participate in all phases of the Lambda lifecycle: initialization, invocation, and shutdown\. In addition, you can use the [Runtime Logs API](runtimes-logs-api.md) to receive a stream of logs\.
+![\[\]](http://docs.aws.amazon.com/lambda/latest/dg/images/telemetry-api-concept-diagram.png)
 
-An extension runs as an independent process in the execution environment and can continue to run after the function invocation is fully processed\. Because extensions run as processes, you can write them in a different language than the function\. We recommend that you implement extensions using a compiled language\. In this case, the extension is a self\-contained binary that is compatible with all of the supported runtimes\. If you use a non\-compiled language, ensure that you include a compatible runtime in the extension\.
+As an extension author, you can use the Lambda Extensions API to integrate deeply into the Lambda [execution environment](lambda-runtime-environment.md)\. Your extension can register for function and execution environment lifecycle events\. In response to these events, you can start new processes, run logic, and control and participate in all phases of the Lambda lifecycle: initialization, invocation, and shutdown\. In addition, you can use the [Runtime Logs API](runtimes-logs-api.md) to receive a stream of logs\.
 
-The following [Lambda runtimes](lambda-runtimes.md) support extensions:
-+ \.NET Core 3\.1 \(C\#/PowerShell\) \(`dotnetcore3.1`\)
-+ Custom runtime \(`provided`\)
-+ Custom runtime on Amazon Linux 2 \(`provided.al2`\)
-+ Java 11 \(Corretto\) \(`java11`\)
-+ Java 8 \(Corretto\) \(`java8.al2`\)
-+ Node\.js 14\.x \(`nodejs14.x`\)
-+ Node\.js 12\.x \(`nodejs12.x`\)
-+ Node\.js 10\.x \(`nodejs10.x`\)
-+ Python 3\.9 \(`python3.9`\)
-+ Python 3\.8 \(`python3.8`\)
-+ Python 3\.7 \(`python3.7`\)
-+ Ruby 2\.7 \(`ruby2.7`\)
-+ Ruby 2\.5 \(`ruby2.5`\)
-
-Note that the Go 1\.x runtime does not support extensions\. To support extensions, you can create Go functions on the `provided.al2` runtime\. For more information, see [ Migrating Lambda functions to Amazon Linux 2](http://aws.amazon.com/blogs/compute/migrating-aws-lambda-functions-to-al2/)\.
+An extension runs as an independent process in the execution environment and can continue to run after the function invocation is fully processed\. Because extensions run as processes, you can write them in a different language than the function\. We recommend that you implement extensions using a compiled language\. In this case, the extension is a self\-contained binary that is compatible with supported runtimes\. All [Lambda runtimes](lambda-runtimes.md) support extensions\. If you use a non\-compiled language, ensure that you include a compatible runtime in the extension\. 
 
 Lambda also supports *internal extensions*\. An internal extension runs as a separate thread in the runtime process\. The runtime starts and stops the internal extension\. An alternative way to integrate with the Lambda environment is to use language\-specific [environment variables and wrapper scripts](runtimes-modify.md)\. You can use these to configure the runtime environment and modify the startup behavior of the runtime process\.
 
-You can add extensions to a function in two ways\. For a function deployed as a [\.zip file archive](gettingstarted-package.md#gettingstarted-package-zip), you deploy your extension as a [layer](configuration-layers.md)\. For a function defined as a container image, you add [the extensions](using-extensions.md#invocation-extensions-images) to your container image\.
+You can add extensions to a function in two ways\. For a function deployed as a [\.zip file archive](gettingstarted-package.md#gettingstarted-package-zip), you deploy your extension as a [layer](configuration-layers.md)\. For a function defined as a container image, you add [the extensions](extensions-configuration.md#invocation-extensions-images) to your container image\.
 
 **Note**  
 For example extensions and wrapper scripts, see [AWS Lambda Extensions](https://github.com/aws-samples/aws-lambda-extensions) on the AWS Samples GitHub repository\.
@@ -116,10 +101,10 @@ Function developers can run different versions of their functions side by side t
 
 ### Shutdown phase<a name="runtimes-lifecycle-shutdown"></a>
 
-When Lambda is about to shut down the runtime, it sends a `Shutdown` event to the runtime and then to each registered external extension\. Extensions can use this time for final cleanup tasks\. The `Shutdown` event is sent in response to a `Next` API request\.
+When Lambda is about to shut down the runtime, it sends a `Shutdown` to each registered external extension\. Extensions can use this time for final cleanup tasks\. The `Shutdown` event is sent in response to a `Next` API request\.
 
 **Duration limit**: The maximum duration of the `Shutdown` phase depends on the configuration of registered extensions:
-+ 300 ms – A function with no registered extensions
++ 0 ms – A function with no registered extensions
 + 500 ms – A function with a registered internal extension
 + 2,000 ms – A function with one or more registered external extensions
 
@@ -208,8 +193,9 @@ Internal extensions are started and stopped by the runtime process, so they are 
 **Method** – **POST**
 
 **Headers**
-
-`Lambda-Extension-Name` – The full file name of the extension\. Required: yes\. Type: string\.
++ `Lambda-Extension-Name` – The full file name of the extension\. Required: yes\. Type: string\.
++ `Lambda-Extension-Accept-Feature` – Use this to specify optional Extensions features during registration\. Required: no\. Type: comma separated string\. Features available to specify using this setting:
+  + `accountId` – If specified, the Extension registration response will contain the account ID associated with the Lambda function that you're registering the Extension for\.
 
 **Body parameters **
 
@@ -239,6 +225,17 @@ Internal extensions are started and stopped by the runtime process, so they are 
     "functionName": "helloWorld",
     "functionVersion": "$LATEST",
     "handler": "lambda_function.lambda_handler"
+}
+```
+
+**Example response body with optional accountId feature**  
+
+```
+{
+    "functionName": "helloWorld",
+    "functionVersion": "$LATEST",
+    "handler": "lambda_function.lambda_handler",
+    "accountId": "123456789012"
 }
 ```
 
@@ -281,7 +278,7 @@ The extension uses this method to report an initialization error to Lambda\. Cal
 `Lambda-Extension-Function-Error-Type` – Error type that the extension encountered\. Required: yes\.
 
 This header consists of a string value\. Lambda accepts any string, but we recommend a format of <category\.reason>\. For example:
-+ Runtime\.NoSuchHandler
++ Extension\.NoSuchHandler
 + Extension\.APIKeyNotFound
 + Extension\.ConfigInvalid
 + Extension\.UnknownReason
@@ -338,7 +335,7 @@ The extension uses this method to report an error to Lambda before exiting\. Cal
 `Lambda-Extension-Function-Error-Type` – Error type that the extension encountered\. Required: yes\.
 
 This header consists of a string value\. Lambda accepts any string, but we recommend a format of <category\.reason>\. For example:
-+ Runtime\.NoSuchHandler
++ Extension\.NoSuchHandler
 + Extension\.APIKeyNotFound
 + Extension\.ConfigInvalid
 + Extension\.UnknownReason

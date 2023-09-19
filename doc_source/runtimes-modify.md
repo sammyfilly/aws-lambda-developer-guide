@@ -1,13 +1,13 @@
 # Modifying the runtime environment<a name="runtimes-modify"></a>
 
-You can use [internal extensions](using-extensions.md) to modify the runtime process\. Internal extensions are not separate processes—they run as part of the runtime process\.
+You can use [internal extensions](lambda-extensions.md) to modify the runtime process\. Internal extensions are not separate processes—they run as part of the runtime process\.
 
 Lambda provides language\-specific [environment variables](configuration-envvars.md) that you can set to add options and tools to the runtime\. Lambda also provides [wrapper scripts](#runtime-wrapper), which allow Lambda to delegate the runtime startup to your script\. You can create a wrapper script to customize the runtime startup behavior\.
 
 ## Language\-specific environment variables<a name="runtimes-envvars"></a>
 
 Lambda supports configuration\-only ways to enable code to be pre\-loaded during function initialization through the following language\-specific environment variables:
-+ `JAVA_TOOL_OPTIONS` – On Java 11 and Java 8 \(`java8.al2`\), Lambda supports this environment variable to set additional command\-line variables in Lambda\. This environment variable allows you to specify the initialization of tools, specifically the launching of native or Java programming language agents using the `agentlib` or `javaagent` options\.
++ `JAVA_TOOL_OPTIONS` – On Java, Lambda supports this environment variable to set additional command\-line variables in Lambda\. This environment variable allows you to specify the initialization of tools, specifically the launching of native or Java programming language agents using the `agentlib` or `javaagent` options\.
 + `NODE_OPTIONS` – On Node\.js 10x and above, Lambda supports this environment variable\.
 + `DOTNET_STARTUP_HOOKS` – On \.NET Core 3\.1 and above, this environment variable specifies a path to an assembly \(dll\) that Lambda can use\.
 
@@ -151,6 +151,8 @@ The following [Lambda runtimes](lambda-runtimes.md) support wrapper scripts:
 + Ruby 2\.7
 + Java 11
 + Java 8 \(`java8.al2`\)
++ \.NET 6
++ \.NET 5
 + \.NET Core 3\.1
 
 When you use a wrapper script for your function, Lambda starts the runtime using your script\. Lambda sends to your script the path to the interpreter and all of the original arguments for the standard runtime startup\. Your script can extend or transform the startup behavior of the program\. For example, the script can inject and alter arguments, set environment variables, or capture metrics, errors, and other diagnostic information\.
